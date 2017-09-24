@@ -202,17 +202,19 @@ void elevate(const v8::FunctionCallbackInfo<Value>& args) {
 
     String::Utf8Value exePathArg(args[0]);
     std::string exePath(*exePathArg);
+    std::wstring w_exePath = s2ws(exePath);
 
     String::Utf8Value cmdLineArg(args[1]);
     std::string cmdLine(*cmdLineArg);
+    std::wstring w_cmdLine = s2ws(cmdLine);
 
     SHELLEXECUTEINFO shExInfo = {0};
     shExInfo.cbSize = sizeof(shExInfo);
     shExInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
     shExInfo.hwnd = 0;
-    shExInfo.lpVerb = "runas";
-    shExInfo.lpFile = exePath.c_str();
-    shExInfo.lpParameters = cmdLine.c_str();
+    shExInfo.lpVerb = L"runas";
+    shExInfo.lpFile = w_exePath.c_str();
+    shExInfo.lpParameters = w_cmdLine.c_str();
     shExInfo.lpDirectory = 0;
     shExInfo.nShow = SW_SHOW;
     shExInfo.hInstApp = 0;
@@ -241,12 +243,12 @@ void GetSystem32Path(const v8::FunctionCallbackInfo<Value>& args) {
     int size = WideCharToMultiByte(CP_UTF8, 0, szPath, -1, NULL, 0, NULL, NULL);
     if (size > 0) {
         buffer.resize(size);
-        WideCharToMultiByte(CP_UTF8, 0, szPath, -1, static_cast<BYTE*>(&buffer[0]), buffer.size(), NULL, NULL);
+        WideCharToMultiByte(CP_UTF8, 0, szPath, -1, &buffer[0], buffer.size(), NULL, NULL);
     }
     else {
         isolate->ThrowException(Exception::TypeError(
             String::NewFromUtf8(isolate, "Failed to convert string")));
-        return
+        return;
     }
     std::string string(&buffer[0]);
 #else

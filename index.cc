@@ -263,11 +263,16 @@ void isUserAdmin(const v8::FunctionCallbackInfo<Value>& args) {
     args.GetReturnValue().Set(Boolean::New(isolate, _isUserAdmin()));
 }
 
+void resetIconCache(const v8::FunctionCallbackInfo<Value>& args) {
+    SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL);
+}
+
 void Init(Handle<Object> exports) {
     NODE_SET_METHOD(exports, "deelevate", deelevate);
     NODE_SET_METHOD(exports, "elevate", elevate);
     NODE_SET_METHOD(exports, "getSystem32Path", GetSystem32Path);
     NODE_SET_METHOD(exports, "isUserAdmin", isUserAdmin);
+    NODE_SET_METHOD(exports, "resetIconCache", resetIconCache);
 }
 
 NODE_MODULE(winutils, Init)

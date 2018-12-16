@@ -11,5 +11,6 @@ module.exports = {
   deelevate: bin.deelevate,
   elevate: bin.elevate,
   getSystem32Path: bin.getSystem32Path,
-  isUserAdmin: bin.isUserAdmin
+  isUserAdmin: bin.isUserAdmin,
+  resetIconCache: bin.resetIconCache,
 }

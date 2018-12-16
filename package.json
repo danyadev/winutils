@@ -2,7 +2,7 @@
   "gypfile": true,
   "main": "index.js",
   "name": "winutils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "install": "node-gyp rebuild || true",
     "test": "node index.js"

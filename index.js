@@ -1,16 +1,14 @@
-'use strict'
+'use strict';
 
-const bin = require('./build/Release/winutils.node')
+const bin = require('./build/Release/winutils.node');
 
 module.exports = {
-  escapeShellArg(arg) {
-    arg = arg.replace(/["%!]/g, ' ')
-    return '"' + arg + '"'
-  },
-
-  deelevate: bin.deelevate,
-  elevate: bin.elevate,
-  getSystem32Path: bin.getSystem32Path,
   isUserAdmin: bin.isUserAdmin,
+  elevate: bin.elevate,
+  deelevate: bin.deelevate,
+  getSystem32Path: bin.getSystem32Path,
   resetIconCache: bin.resetIconCache,
+  escapeShellArg(arg) {
+    return `"${arg.replace(/["%!]/g, ' ')}"`;
+  }
 }

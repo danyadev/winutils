@@ -1,9 +1,10 @@
 {
   "name": "winutils",
   "main": "index.js",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "install": "node-gyp rebuild"
   },
-  "gypfile": true
+  "gypfile": true,
+  "os": ["win32"]
 }
